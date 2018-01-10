@@ -8,7 +8,9 @@ import {
     View,
     Text,
     StyleSheet,
-    TouchableOpacity
+    TouchableOpacity,
+    NativeModules,
+    Platform
 } from 'react-native';
 
 export default class Home2 extends React.Component {
@@ -39,8 +41,17 @@ export default class Home2 extends React.Component {
         return (
             <View style={styles.container}>
                 <Text>home2接收到的 : {params.name}</Text>
+                <TouchableOpacity onPress={() => this._goNative()}>
+                    <Text>跳去安卓原生页面</Text>
+                </TouchableOpacity>
             </View>
         )
+    }
+
+    _goNative() {
+        if (Platform.OS == 'android') {
+            NativeModules.IntentMoudle.startActivityFromJs('com.gitproject.FirstActivity', '从js来的参数');
+        }
     }
 }
 const styles = StyleSheet.create({
