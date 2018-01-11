@@ -9,7 +9,8 @@ import {
     Text,
     StyleSheet,
     Button,
-    Image
+    Image,
+    SafeAreaView
 } from 'react-native';
 
 import {DrawerNavigator} from 'react-navigation';
@@ -24,17 +25,20 @@ class Home extends React.Component {
             />
         ),
     };
+
     render() {
         const {navigate} = this.props.navigation;
         return (
             <View style={styles.container}>
-                <Text onPress={() =>
-                    navigate('Home2', {name: '从Home到HOme2'})
-                }>跳到新页面</Text>
+                <SafeAreaView>
+                    <Text onPress={() =>
+                        navigate('Home2', {name: '从Home到HOme2'})
+                    }>跳到新页面</Text>
 
-                <Text onPress={() =>
-                    navigate('DrawerOpen')
-                }>打开抽屉</Text>
+                    <Text onPress={() =>
+                        navigate('DrawerOpen')
+                    }>打开抽屉</Text>
+                </SafeAreaView>
             </View>
         )
     }
@@ -64,9 +68,9 @@ class MyNotificationsScreen extends React.Component {
 const Drawer = DrawerNavigator({
     Home: {
         screen: Home,
-        navigationOptions:{
-            drawerLabel:'帅气Home',
-            headerTitle:'home title',
+        navigationOptions: {
+            drawerLabel: '帅气Home',
+            headerTitle: 'home title',
             drawerIcon: ({tintColor}) => (
                 <Image
                     source={require('../../img/ic_launcher.png')}
@@ -84,8 +88,8 @@ const Drawer = DrawerNavigator({
     },
 }, {
     drawerWidth: 200, //抽屉的宽度
-    drawerPosition: 'left' ,  //选项是left和right.默认是left
-   // contentComponent:(navigation)=><Text>asa</Text>,
+    drawerPosition: 'left',  //选项是left和right.默认是left
+    // contentComponent:(navigation)=><Text>asa</Text>,
     contentOptions: {
         activeTintColor: '#e91e63',
         itemsContainerStyle: {

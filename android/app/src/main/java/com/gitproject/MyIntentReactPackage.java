@@ -18,8 +18,9 @@ import java.util.List;
 public class MyIntentReactPackage implements ReactPackage {
     @Override
     public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
-
-        return Arrays.<NativeModule>asList(new MyIntentMoudle(reactContext));
+        List<NativeModule> modules = new ArrayList<>();
+        modules.add(new MyIntentMoudle(reactContext));
+        return modules;
     }
 
     @Override

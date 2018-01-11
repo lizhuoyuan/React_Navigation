@@ -7,7 +7,8 @@ import React from 'react';
 import {
     Image, View,
     StyleSheet,
-    Text, TouchableOpacity
+    Text,
+    TouchableOpacity,
 } from 'react-native';
 import {TabNavigator, StackNavigator} from 'react-navigation';
 import More from './app/more/More';
@@ -74,12 +75,12 @@ const Tab = TabNavigator({
         activeBackgroundColor: 'red', //label和icon的背景色 活跃状态下（选中） 。
         showLabel: true,         //是否显示label，默认开启
         labelStyle: {fontSize: 12}, //label的样式
-        style: {height: 50},  //tabbar的样式
+        style: {height: 50, bottom: 34},  //tabbar的样式
         iconStyle: {height: 30}   //安卓,
     }
 });
 
-const App = StackNavigator({
+const AppRoute = StackNavigator({
     Home: {
         screen: Tab,
         navigationOptions: {
@@ -125,4 +126,4 @@ const App = StackNavigator({
     },
 
 });
-export default App;
+export default AppRoute;
