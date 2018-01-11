@@ -16,6 +16,7 @@ import MePage from './app/mepage/Me';
 import Home2 from './app/home/Home2';
 import Home from './app/home/Home';
 import Drawer from './app/home/Home';
+import * as ScreenUtil from './app/utils/ScreenUtil';
 
 const styles = StyleSheet.create({
     rightView: {
@@ -75,7 +76,7 @@ const Tab = TabNavigator({
         activeBackgroundColor: 'red', //label和icon的背景色 活跃状态下（选中） 。
         showLabel: true,         //是否显示label，默认开启
         labelStyle: {fontSize: 12}, //label的样式
-        style: {height: 50, bottom: 34},  //tabbar的样式
+        style: {height: 50, bottom: ScreenUtil.isIphoneX ? 34 : 0},  //tabbar的样式
         iconStyle: {height: 30}   //安卓,
     }
 });
