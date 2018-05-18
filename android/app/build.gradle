@@ -115,12 +115,40 @@ android {
             include "armeabi-v7a", "x86"
         }
     }
+    //密匙信息
+    signingConfigs {
+        release {
+            storeFile file(MYAPP_RELEASE_STORE_FILE)
+            storePassword MYAPP_RELEASE_STORE_PASSWORD
+            keyAlias MYAPP_RELEASE_KEY_ALIAS
+            keyPassword MYAPP_RELEASE_KEY_PASSWORD
+        }
+    }
+
+    //打包类型，包括了Debug和Release
     buildTypes {
         release {
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+            signingConfig signingConfigs.release
         }
     }
+
+    //打包渠道
+    productFlavors {
+
+        _360 {
+            applicationId "com.lzy._360"
+            versionName "version-360-1.0"
+            manifestPlaceholders = [UMC: "360", app_name: "Navigation"]
+        }
+        oneplus {
+            applicationId "com.lzy.oneplus"
+            versionName "version-oneplus-1.0"
+            manifestPlaceholders = [UMC: "ONEPLUS", app_name: "一加定制版Navigation"]
+        }
+    }
+
     // applicationVariants are e.g. debug, release
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
@@ -134,10 +162,13 @@ android {
             }
         }
     }
+    dexOptions {
+        incremental true
+    }
 }
 
 dependencies {
-    compile fileTree(dir: "libs", include: ["*.jar"])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     // From node_modules
     compile 'com.android.support:appcompat-v7:23.0.1'
     compile 'com.facebook.react:react-native:+'

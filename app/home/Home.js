@@ -16,24 +16,30 @@ import {
 import {DrawerNavigator} from 'react-navigation';
 
 class Home extends React.Component {
-    static navigationOptions = {
-        drawerLabel: 'Notifications标题',
-        drawerIcon: ({tintColor}) => (
-            <Image
-                source={require('../../img/ic_launcher.png')}
-                style={[styles.icon, {tintColor: tintColor}]}
-            />
-        ),
-    };
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            d: 'a'
+        }
+    }
 
     render() {
         const {navigate} = this.props.navigation;
+
         return (
             <View style={styles.container}>
                 <SafeAreaView>
                     <Text onPress={() =>
-                        navigate('Home2', {name: '从Home到HOme2'})
-                    }>跳到新页面</Text>
+                        navigate('Home2', {
+                            name: '从Home到HOme2', callback: data => {
+                                this.setState({
+                                    d: data
+                                });
+                                console.log(this.state.d)
+                            }
+                        })
+                    }>跳到新页面{this.state.d}</Text>
 
                     <Text onPress={() =>
                         navigate('DrawerOpen')
@@ -79,7 +85,6 @@ const Drawer = DrawerNavigator({
             ),
         }
     },
-
     Notifications: {
         screen: MyNotificationsScreen,
     },

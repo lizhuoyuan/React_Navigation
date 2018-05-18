@@ -10,7 +10,9 @@ import {
     StyleSheet,
     TouchableOpacity,
     NativeModules,
-    Platform
+    Platform,
+
+    ToastAndroid
 } from 'react-native';
 
 export default class Home2 extends React.Component {
@@ -36,14 +38,22 @@ export default class Home2 extends React.Component {
 
 
     render() {
-
-        const {params} = this.props.navigation.state;
+        console.log(this.props.navigation)
+        const {navigate, goBack, state} = this.props.navigation;
+        const {params} = state;
         return (
             <View style={styles.container}>
                 <Text>home2接收到的 : {params.name}</Text>
                 <TouchableOpacity onPress={() => this._goNative()}>
                     <Text>跳去安卓原生页面</Text>
                 </TouchableOpacity>
+
+                <Text onPress={() => {
+                    params.callback('回调参数')
+                    // this.props.navigation.goBack()
+                }}>
+                    改变上个页面的a
+                </Text>
             </View>
         )
     }
@@ -51,9 +61,22 @@ export default class Home2 extends React.Component {
     _goNative() {
         if (Platform.OS == 'android') {
             NativeModules.IntentMoudle.startActivityFromJs('com.gitproject.FirstActivity', '从js来的参数');
+
         }
     }
+
+
+    _goNativeForResult() {
+        NativeModules.IntentMoudle.startActivityFromJSGetResult("com.gitproject.FirstActivity", 200, (msg) => {
+                ToastAndroid.show('JS界面:从Activity中传输过来的数据为:' + msg, ToastAndroid.SHORT);
+            },
+            (result) => {
+                ToastAndroid.show('JS界面:错误信息为:' + result, ToastAndroid.SHORT);
+            })
+    }
 }
+
+
 const styles = StyleSheet.create({
     container: {
         marginTop: 22

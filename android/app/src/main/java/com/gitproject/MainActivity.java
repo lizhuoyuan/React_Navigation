@@ -1,6 +1,11 @@
 package com.gitproject;
 
+import android.os.Bundle;
+import android.os.PersistableBundle;
+import android.support.annotation.Nullable;
+
 import com.facebook.react.ReactActivity;
+import com.gitproject.module.ShareModule;
 
 public class MainActivity extends ReactActivity {
 
@@ -12,4 +17,12 @@ public class MainActivity extends ReactActivity {
     protected String getMainComponentName() {
         return "GitProject";
     }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        ShareModule.initActivity(this);
+    }
 }
+
+
